@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Explination for the entern Question
 
-## Getting Started
+## the code that should be explained:
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```tsx
+function Model() {
+  const { viewport } = useThree();
+  const torusRef = useRef<THREE.Mesh>(null);
+  useFrame((state, delta) => {
+    if (torusRef.current) {
+      torusRef.current.rotation.x += 0.03;
+    }
+  });
+  return (
+    <group scale={viewport.width / 9}>
+      <mesh ref={torusRef} rotation={[0, Math.PI / 4, 0]}>
+        <torusGeometry args={[0.6, 0.3, 32, 64]} />
+        <MeshTransmissionMaterial
+          thickness={0.2}
+          chromaticAberration={0.02}
+          anisotropy={0.1}
+          ior={1.5}
+          backside
+        />
+      </mesh>
+      <Text font="/fonts/font.ttf" position={[0, 0, -1]}>
+        hello world
+      </Text>
+    </group>
+  );
+}
 ```
+## the explaination
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- the {viewprot} that is comming from useThree hook is for getting the screen dimension in the 3d space
+- the toursRef is the ref For the mesh that we are creating and we will using it for animate the 3d mesh
+- useFrame is a hook that is use to animate the 3d mesh in frame by frame 
+- the MeshTransmissionMaterial that is comming from drei is a material that is use to create a glass effect
