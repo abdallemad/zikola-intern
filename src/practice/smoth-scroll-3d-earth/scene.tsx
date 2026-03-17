@@ -32,8 +32,8 @@ function Eearth() {
 
     ScrollTrigger.create({
       trigger: ".earth-scroll-base",
-      start: "top top",
-      end: "bottom bottom",
+      start: "top bottom",
+      end: "bottom top",
       scrub: true,
       onUpdate: (self) => {
         scrollProgress.current = self.progress
@@ -42,7 +42,7 @@ function Eearth() {
 
     function handleScroll() {
       api.start({
-        rotation: scrollProgress.current * Math.PI * 2
+        rotation: scrollProgress.current * Math.PI * 2 / 3
       })
     }
     window.addEventListener('scroll', handleScroll)
